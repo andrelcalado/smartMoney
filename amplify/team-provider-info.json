@@ -1,0 +1,30 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-finance-dev-191018-authRole",
+      "UnauthRoleArn": "arn:aws:iam::065493972564:role/amplify-finance-dev-191018-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::065493972564:role/amplify-finance-dev-191018-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-finance-dev-191018-deployment",
+      "UnauthRoleName": "amplify-finance-dev-191018-unauthRole",
+      "StackName": "amplify-finance-dev-191018",
+      "StackId": "arn:aws:cloudformation:us-east-1:065493972564:stack/amplify-finance-dev-191018/64810890-173b-11ec-8911-123a596f344f",
+      "AmplifyAppId": "d1x9a9ae1f799k"
+    },
+    "categories": {
+      "auth": {
+        "finance46d702d0": {}
+      },
+      "function": {
+        "entryAPI": {
+          "deploymentBucketName": "amplify-finance-dev-191018-deployment",
+          "s3Key": "amplify-builds/entryAPI-4a68714f6b6e30583769-build.zip"
+        },
+        "categoryFunction": {
+          "deploymentBucketName": "amplify-finance-dev-191018-deployment",
+          "s3Key": "amplify-builds/categoryFunction-44656834654a49416463-build.zip"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+    "tableName": "entryDb",
+    "partitionKeyName": "id",
+    "partitionKeyType": "N"
+}

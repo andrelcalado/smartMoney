@@ -1,0 +1,54 @@
+{
+  "paths": [
+    {
+      "name": "/category",
+      "lambdaFunction": "categoryFunction",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/category"
+    },
+    {
+      "name": "/entry",
+      "lambdaFunction": "entryAPI",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/entry"
+    }
+  ],
+  "resourceName": "CategoryAPI",
+  "apiName": "CategoryAPI",
+  "functionArns": [
+    {
+      "lambdaFunction": "categoryFunction"
+    },
+    {
+      "lambdaFunction": "entryAPI"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-finance-dev-191018-authRole",
+    "unAuthRoleName": "amplify-finance-dev-191018-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "categoryFunction",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    },
+    {
+      "category": "function",
+      "resourceName": "entryAPI",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}
