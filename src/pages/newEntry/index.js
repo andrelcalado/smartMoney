@@ -27,9 +27,6 @@ export default function NewEntry({ navigation }) {
         entrys: null
     });
 
-    console.log(entrys);
-    console.log(currEntry);
-
     const remove = () => {
         console.log('remover');
     }
