@@ -1,12 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import EntryListItem from './EntryListItem';
+import Container from '../Core/Container';
 
-export default function EntryList({entryList, navigation}) {
+export default function EntryList({navigation}) {
     return (
-        <View>
-            <EntryListItem navigation={navigation} entryList={entryList}/>
-        </View>
+        <Container title="Últimos Lançamentos" actionLabel="Últimos 7 Dias"
+        actionButtonText="Ver mais" onPressActionButton={ ()=> {console.log('vsf 2')}}>
+            <EntryListItem navigation={navigation}/>
+        </Container>
     )
 }

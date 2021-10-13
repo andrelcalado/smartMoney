@@ -1,6 +1,6 @@
 import React, { componentDidMount, useState, useEffect} from 'react';
 import { View, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Amplify, {API} from 'aws-amplify';
+import Amplify from 'aws-amplify';
 import awsconfig from '../../aws-exports';
 import Colors from '../../styles/colors';
 
@@ -15,27 +15,20 @@ Amplify.configure(awsconfig);
 const Main = ({navigation}) => {
     const [categorys, setCategorys] = React.useState([]);
     const [cateName, cateNameSet] = React.useState('');
-    const [entryList, setEntryList] = useState([]);
-
-    useEffect( () => {
-        console.log('Hey, ho');
-        API.get('CategoryAPI', '/entry/amout').then( res => {
-            setEntryList(res);
-        });
-    },[]);
-    
-    
 
     return (
         <View style={styles.container}>
             <BalancePanel/>
+
             <TouchableOpacity
             onPress={ () => { navigation.navigate('NewEntry', {entrys: entrySummary}) }}
             style={styles.addEntry}>
                 <Icon name="add" size={35} color={Colors.white}/>
             </TouchableOpacity>
+
             <EntrySummary/>
-            <EntryList navigation={navigation} entryList={entryList}/>
+            
+            <EntryList navigation={navigation}/>
         </View>
     );
 
@@ -60,6 +53,7 @@ const styles = StyleSheet.create({
         shadowColor: Colors.black,
         elevation: 10,
         marginTop: -25,
+        marginBottom: -25,
         marginRight: 12,
     }
     
