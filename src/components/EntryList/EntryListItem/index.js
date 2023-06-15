@@ -8,7 +8,6 @@ export default function EntryListItem({ navigation }) {
     const [entryList, setEntryList] = React.useState();
 
     useEffect(() => {
-        console.log('Hey, ho');
         API.get('CategoryAPI', '/entry/amout').then(res => {
             setEntryList(res);
         });
