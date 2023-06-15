@@ -8,11 +8,12 @@
 
 import React from 'react';
 import Routes from './src/routes';
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
+import Colors from './src/styles/colors';
 
 const App = () => {
   return (
-    <View>
+    <View style={{backgroundColor: Colors.background, height: '100%'}}>
       <Routes />
     </View>
   );

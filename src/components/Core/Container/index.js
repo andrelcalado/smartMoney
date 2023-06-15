@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Colors from '../../../styles/colors';
+import {styles} from './styles';
 
 export default function Container({
   title,
@@ -33,40 +33,3 @@ export default function Container({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: Colors.white,
-  },
-  actionContainer: {
-    flexDirection: 'row',
-  },
-  summaryContainer: {
-    backgroundColor: Colors.asphalt,
-    margin: 5,
-    padding: 10,
-    borderRadius: 7,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-  },
-  actionLabel: {
-    flex: 1,
-    fontSize: 15,
-    color: Colors.white,
-  },
-  actionButtonContainer: {
-    flexDirection: 'row',
-  },
-  actionButtonIcon: {
-    color: '#fff',
-    margin: 3,
-    fontSize: 25,
-  },
-  actionButtonText: {
-    marginTop: 5,
-    color: '#fff',
-  },
-});
