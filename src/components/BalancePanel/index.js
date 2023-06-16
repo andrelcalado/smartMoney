@@ -8,9 +8,7 @@ import {styles} from './styles';
 const BalancePanel = () => {
   return (
     <View style={styles.container}>
-      <LinearGradient
-        style={styles.bgGradient}
-        colors={[Colors.violet, Colors.blue]}>
+      <LinearGradient colors={[Colors.violet, Colors.blue]}>
         <BalancePanelLabel />
       </LinearGradient>
     </View>

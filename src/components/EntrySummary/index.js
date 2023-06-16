@@ -8,15 +8,13 @@ import EntrySummaryChart from './EntrySummaryChart';
 import EntrySummaryList from './EntrySummaryList';
 import Container from '../Core/Container';
 
-export default function EntrySummary() {
+export default function EntrySummary({onPressActionButton}) {
   return (
     <Container
       title="Categorias"
       actionLabel="Últimos 7 Dias"
       actionButtonText="Ver mais"
-      onPressActionButton={() => {
-        console.log('vsf');
-      }}>
+      onPressActionButton={onPressActionButton}>
       <EntrySummaryChart />
       <EntrySummaryList />
     </Container>

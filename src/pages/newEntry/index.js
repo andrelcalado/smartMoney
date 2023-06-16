@@ -3,6 +3,9 @@ import Amplify, {API} from 'aws-amplify';
 import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
 
 import BalancePanel from '../../components/BalancePanel';
+import BalancePanelLabel from '../../components/BalancePanel/BalancePanelLabel';
+import {styles} from './styles';
+import Colors from '../../styles/colors';
 
 export default function NewEntry({navigation}) {
   const [amout, setAmout] = useState(0);
@@ -52,7 +55,7 @@ export default function NewEntry({navigation}) {
 
   return (
     <View>
-      <BalancePanel currenteBalance={amout} />
+      <BalancePanelLabel currenteBalance={amout} newEntry />
 
       <View>
         <TextInput
@@ -94,15 +97,7 @@ export default function NewEntry({navigation}) {
             navigation.goBack();
           }}
         />
-        {/* <Button disabled={() => {if(currEntry!=null){return true}else{return false}}} title="Excluir" onPress={() => { remove; navigation.goBack(); }} /> */}
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  input: {
-    borderColor: '#000',
-    borderWidth: 1,
-  },
-});

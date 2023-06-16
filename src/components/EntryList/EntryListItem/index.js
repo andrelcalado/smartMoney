@@ -56,8 +56,12 @@ export default function EntryListItem({navigation}) {
                   <Icon name="access-time" style={styles.infoIcon} />
                   <Text style={styles.bottomInfo}>{item.date}</Text>
 
-                  <Icon name="place" style={styles.infoIcon} />
-                  <Text style={styles.bottomInfo}>{item.address}</Text>
+                  {item.address && (
+                    <>
+                      <Icon name="place" style={styles.infoIcon} />
+                      <Text style={styles.bottomInfo}>{item.address}</Text>
+                    </>
+                  )}
                 </View>
               </View>
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button, TouchableOpacity} from 'react-native';
+import {View, Button, TouchableOpacity, Text} from 'react-native';
 import Amplify from 'aws-amplify';
 // import awsconfig from '../../aws-exports';
 import Colors from '../../styles/colors';
@@ -23,15 +23,18 @@ const Main = ({navigation}) => {
 
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('NewEntry', {entrys: entrySummary});
+          navigation.navigate('NewEntry');
         }}
         style={styles.addEntry}>
         <Icon name="add" size={35} color={Colors.white} />
       </TouchableOpacity>
 
-      <EntrySummary />
+      <EntrySummary onPressActionButton={() => navigation.navigate('Report')} />
 
-      <EntryList navigation={navigation} />
+      <EntryList
+        navigation={navigation}
+        onPressActionButton={() => navigation.navigate('Report')}
+      />
     </View>
   );
 };
