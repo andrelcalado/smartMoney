@@ -1,8 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import Amplify, {API} from 'aws-amplify';
-import {View, Text, TextInput, StyleSheet, Button} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 
-import BalancePanel from '../../components/BalancePanel';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import BalancePanelLabel from '../../components/BalancePanel/BalancePanelLabel';
 import {styles} from './styles';
 import Colors from '../../styles/colors';
@@ -72,31 +79,40 @@ export default function NewEntry({navigation}) {
           }}
           style={styles.input}
         />
-        <Button title="GPS" />
-        <Button title="Câmera" />
       </View>
 
-      <View>
-        <Button
-          title="Adicionar"
+      <View style={styles.featuresButtons}>
+        <TouchableOpacity style={styles.featureButton}>
+          <Icon name="camera-alt" size={40} color={Colors.white} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.featureButton}>
+          <Icon name="place" size={40} color={Colors.white} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.actionButtons}>
+        <TouchableOpacity
+          style={styles.submitButton}
           onPress={() => {
             addAmount();
             navigation.goBack();
-          }}
-        />
-        <Button
-          title="Cancelar"
+          }}>
+          <Text style={styles.labelSubmit}>Adicionar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cancelButton}
           onPress={() => {
             navigation.goBack();
-          }}
-        />
-        <Button
+          }}>
+          <Text style={styles.buttonLabel}>Cancelar</Text>
+        </TouchableOpacity>
+        {/* <Button
           title="Excluir"
           onPress={() => {
             remove;
             navigation.goBack();
           }}
-        />
+        /> */}
       </View>
     </View>
   );
