@@ -1,22 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import Amplify, {API} from 'aws-amplify';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
-
+import React, {useState} from 'react';
+import {API} from 'aws-amplify';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {TextInputMask} from 'react-native-masked-text';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BalancePanelLabel from '../../components/BalancePanel/BalancePanelLabel';
 import {styles} from './styles';
 import Colors from '../../styles/colors';
 
-export default function NewEntry({navigation}) {
+export default function NewEntry({value, navigation}) {
   const [amout, setAmout] = useState(0);
   const [aDescription, setADescription] = useState(' ');
+  const [debit, setDebit] = useState(value < 0 ? -1 : 1);
   const [id, setId] = useState(0);
 
   API.get('CategoryAPI', '/entry/amout')
@@ -45,12 +39,20 @@ export default function NewEntry({navigation}) {
     console.log('remover');
   };
 
+  const onChangeDebit = () => {
+    if (debit < 0) {
+      setDebit(1);
+    } else {
+      setDebit(-1);
+    }
+  };
+
   const addAmount = () => {
     API.post('CategoryAPI', '/entry', {
       body: {
         id: id,
         category: 'Alimentação',
-        amount: amout,
+        amount: amout * debit,
         description: aDescription,
         entryAt: new Date(),
         latitude: 'tbm',
@@ -65,13 +67,27 @@ export default function NewEntry({navigation}) {
       <BalancePanelLabel currenteBalance={amout} newEntry />
 
       <View>
-        <TextInput
-          value={String(amout)}
-          onChangeText={text => {
-            Number(setAmout(text));
-          }}
-          style={styles.input}
-        />
+        <View style={styles.amountContainer}>
+          <TouchableOpacity
+            style={styles.debitSignContainer}
+            onPress={onChangeDebit}>
+            <Text style={styles.debitSign}>{debit < 0 ? '-' : ''}$</Text>
+          </TouchableOpacity>
+
+          <TextInputMask
+            type="money"
+            options={{
+              precision: 2,
+              unit: '',
+            }}
+            value={String(amout)}
+            includeRawValueInChangeText
+            onChangeText={(maskedValue, rawValue) => {
+              setAmout(rawValue);
+            }}
+            style={[styles.input, styles.inputPrice]}
+          />
+        </View>
         <TextInput
           value={String(aDescription)}
           onChangeText={text => {

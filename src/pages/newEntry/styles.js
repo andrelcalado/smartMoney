@@ -13,6 +13,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     fontWeight: '500',
+    textAlign: 'center',
+  },
+  inputPrice: {
+    textAlign: 'right',
+    width: '100%',
   },
   featuresButtons: {
     flexDirection: 'row',
@@ -51,5 +56,23 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 18,
     fontWeight: '400',
+  },
+  amountContainer: {
+    position: 'relative',
+    width: '80%',
+    alignSelf: 'center',
+  },
+  debitSign: {
+    fontSize: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    fontWeight: '500',
+    color: Colors.white,
+  },
+  debitSignContainer: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 5,
   },
 });
