@@ -75,8 +75,8 @@ export const getInitCategories = async () => {
     .get();
 
   if (querySnapshot.docs.length <= 0) {
-    return querySnapshot.docs;
-  } else {
     return getDefaultCategories();
+  } else {
+    return querySnapshot.docs;
   }
 };

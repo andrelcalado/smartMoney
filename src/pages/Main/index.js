@@ -1,7 +1,5 @@
 import React from 'react';
-import {View, Button, TouchableOpacity, Text} from 'react-native';
-import Amplify from 'aws-amplify';
-// import awsconfig from '../../aws-exports';
+import {View, TouchableOpacity} from 'react-native';
 import Colors from '../../styles/colors';
 
 import BalancePanel from '../../components/BalancePanel';
@@ -10,8 +8,6 @@ import EntryList from '../../components/EntryList';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {styles} from './styles';
-
-// Amplify.configure(awsconfig);
 
 const Main = ({navigation}) => {
   const [categorys, setCategorys] = React.useState([]);

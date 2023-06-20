@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.asphalt,
     color: Colors.white,
     borderRadius: 11,
-    marginBottom: 35,
+    marginBottom: 25,
     fontSize: 40,
     paddingHorizontal: 20,
     paddingVertical: 15,
@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
+    paddingBottom: 30,
   },
   submitButton: {
     borderWidth: 2,
@@ -74,5 +75,49 @@ export const styles = StyleSheet.create({
     left: 0,
     top: 0,
     zIndex: 5,
+  },
+  categoryModal: {
+    backgroundColor: 'rgba(0, 0, 0, .3)',
+    padding: 15,
+    flex: 1,
+  },
+  categoryModalContainer: {
+    backgroundColor: Colors.background,
+    borderRadius: 30,
+    padding: 30,
+    flex: 1,
+  },
+  categoryItem: {
+    color: Colors.white,
+  },
+  categoryField: {
+    fontSize: 30,
+    paddingVertical: 22,
+    fontWeight: '300',
+  },
+  categoryModalItemText: {
+    fontWeight: '300',
+    fontSize: 30,
+    width: '100%',
+    marginBottom: 20,
+  },
+  closeButton: {
+    borderWidth: 2,
+    borderColor: Colors.red,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    width: '100%',
+  },
+  closeButtonText: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontSize: 15,
+  },
+  disabledButton: {
+    borderColor: Colors.metalDark,
+  },
+  disabledButtonLabel: {
+    color: Colors.metalDark,
   },
 });

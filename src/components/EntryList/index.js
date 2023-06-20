@@ -1,15 +1,17 @@
-import React, {useEffect} from 'react';
-import {getInitCategories} from '../../services/category';
+import React, {useEffect, useState} from 'react';
+import {FlatList} from 'react-native';
+import {getEntries} from '../../services/entry';
 
 import EntryListItem from './EntryListItem';
 import Container from '../Core/Container';
 
 export default function EntryList({navigation, onPressActionButton}) {
+  const [entries, setEntries] = useState([]);
+
   useEffect(() => {
-    getInitCategories()
+    getEntries()
       .then(res => {
-        console.log(res);
-        console.log(res.length);
+        setEntries(res.map(item => item.data()));
       })
       .catch(err => {
         console.log(err);
@@ -22,7 +24,16 @@ export default function EntryList({navigation, onPressActionButton}) {
       actionLabel="Últimos 7 Dias"
       actionButtonText="Ver mais"
       onPressActionButton={onPressActionButton}>
-      <EntryListItem navigation={navigation} />
+      <FlatList
+        data={entries}
+        renderItem={({item, index}) => (
+          <EntryListItem
+            entryItem={item}
+            navigation={navigation}
+            lastItem={index + 1 >= entries.length}
+          />
+        )}
+      />
     </Container>
   );
 }

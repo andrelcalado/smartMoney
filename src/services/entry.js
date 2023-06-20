@@ -7,10 +7,10 @@ export const addEntry = async entry => {
       amount: entry.amount,
       description: entry.description,
       entryAt: entry.entryAt || new Date(),
-      latitude: entry.latitude,
-      longitude: entry.longitude,
-      address: entry.address,
-      photo: entry.photo,
+      latitude: entry.latitude || '',
+      longitude: entry.longitude || '',
+      address: entry.address || '',
+      photo: entry.photo || '',
       isInit: entry.isInit || false,
       category: entry.category,
     };
@@ -20,4 +20,13 @@ export const addEntry = async entry => {
     console.error('addEntry :: error  on save object: ', JSON.stringify(error));
     Alert.alert('Erro ao salvar os dados de lançamento');
   }
+};
+
+export const getEntries = async () => {
+  const querySnapshot = await firestore()
+    .collection('entry')
+    .orderBy('entryAt', 'asc')
+    .get();
+
+  return querySnapshot.docs;
 };

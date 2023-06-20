@@ -1,32 +1,29 @@
-import React, {useState} from 'react';
-import {API} from 'aws-amplify';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  Modal,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+  TextInput,
+  ScrollView,
+} from 'react-native';
 import {TextInputMask} from 'react-native-masked-text';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BalancePanelLabel from '../../components/BalancePanel/BalancePanelLabel';
 import {styles} from './styles';
 import Colors from '../../styles/colors';
+import {getInitCategories} from '../../services/category';
+import {addEntry} from '../../services/entry';
 
 export default function NewEntry({value, navigation}) {
+  const [categorys, setCategorys] = useState([]);
   const [amout, setAmout] = useState(0);
-  const [aDescription, setADescription] = useState(' ');
+  const [currentCategory, setCurrentCategory] = useState('');
   const [debit, setDebit] = useState(value < 0 ? -1 : 1);
-  const [id, setId] = useState(0);
-
-  API.get('CategoryAPI', '/entry/amout')
-    .then(res => {
-      console.log(res);
-      if (currEntry.id != null) {
-        setId(currEntry.id);
-        setADescription(currEntry.description);
-        setAmout(currEntry.amount);
-      } else {
-        setId(res.length + 1);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  const [categoryModal, setCategoryModal] = useState(false);
+  const [description, setDescription] = useState('');
 
   const currEntry = navigation.getParam('currEntry', {
     id: null,
@@ -35,9 +32,19 @@ export default function NewEntry({value, navigation}) {
     entrys: null,
   });
 
-  const remove = () => {
-    console.log('remover');
-  };
+  useEffect(() => {
+    getInitCategories()
+      .then(res => {
+        setCategorys(res);
+      })
+      .catch(err => {
+        console.log('err:', err);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(amout);
+  }, [amout]);
 
   const onChangeDebit = () => {
     if (debit < 0) {
@@ -48,22 +55,63 @@ export default function NewEntry({value, navigation}) {
   };
 
   const addAmount = () => {
-    API.post('CategoryAPI', '/entry', {
-      body: {
-        id: id,
-        category: 'Alimentação',
-        amount: amout * debit,
-        description: aDescription,
-        entryAt: new Date(),
-        latitude: 'tbm',
-        longitude: 'tn',
-        address: 'tb',
-      },
-    });
+    addEntry({
+      amount: amout * debit,
+      description,
+      category: currentCategory,
+    })
+      .then(() => {
+        Alert.alert('Value added!');
+        navigation.goBack();
+      })
+      .catch(() => {
+        Alert.alert('Erro');
+      });
+  };
+
+  const onChangeCategory = item => {
+    setCurrentCategory(item);
+    setCategoryModal(false);
   };
 
   return (
-    <View>
+    <ScrollView>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={categoryModal}
+        onRequestClose={() => setCategoryModal(!categoryModal)}>
+        <View style={styles.categoryModal}>
+          <View style={styles.categoryModalContainer}>
+            <FlatList
+              data={categorys}
+              renderItem={({item, index}) => {
+                const data = item.data();
+
+                return (
+                  <TouchableOpacity onPress={() => onChangeCategory(data)}>
+                    <Text
+                      style={[
+                        styles.input,
+                        styles.categoryModalItemText,
+                        {color: data.color},
+                      ]}
+                      key={index}>
+                      {data.name}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setCategoryModal(false)}>
+              <Text style={styles.closeButtonText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       <BalancePanelLabel currenteBalance={amout} newEntry />
 
       <View>
@@ -89,12 +137,17 @@ export default function NewEntry({value, navigation}) {
           />
         </View>
         <TextInput
-          value={String(aDescription)}
-          onChangeText={text => {
-            String(setADescription(text));
-          }}
-          style={styles.input}
+          value={description}
+          onChangeText={setDescription}
+          style={[styles.input, styles.categoryField]}
+          placeholder="Descrição"
+          placeholderTextColor={Colors.white}
         />
+        <TouchableOpacity onPress={() => setCategoryModal(true)}>
+          <Text style={[styles.input, styles.categoryField]}>
+            {currentCategory?.name || 'Categoria'}
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.featuresButtons}>
@@ -108,12 +161,19 @@ export default function NewEntry({value, navigation}) {
 
       <View style={styles.actionButtons}>
         <TouchableOpacity
-          style={styles.submitButton}
-          onPress={() => {
-            addAmount();
-            navigation.goBack();
-          }}>
-          <Text style={styles.labelSubmit}>Adicionar</Text>
+          disabled={!currentCategory}
+          style={[
+            styles.submitButton,
+            !currentCategory && styles.disabledButton,
+          ]}
+          onPress={addAmount}>
+          <Text
+            style={[
+              styles.labelSubmit,
+              !currentCategory && styles.disabledButtonLabel,
+            ]}>
+            Adicionar
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.cancelButton}
@@ -122,14 +182,7 @@ export default function NewEntry({value, navigation}) {
           }}>
           <Text style={styles.buttonLabel}>Cancelar</Text>
         </TouchableOpacity>
-        {/* <Button
-          title="Excluir"
-          onPress={() => {
-            remove;
-            navigation.goBack();
-          }}
-        /> */}
       </View>
-    </View>
+    </ScrollView>
   );
 }
