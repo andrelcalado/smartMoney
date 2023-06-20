@@ -79,3 +79,6 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+# PocketBase
+/src/back/pocketbase/pb_data/

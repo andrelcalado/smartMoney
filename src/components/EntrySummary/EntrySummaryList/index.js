@@ -1,7 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
+import axios from 'axios';
 
 export default function EntrySummaryList() {
+  useEffect(() => {
+    const baseURL = 'https://api.publicapis.org';
+
+    axios
+      .get(`${baseURL}/entries`)
+      .then(res => {
+        console.log('res', res);
+      })
+      .catch(err => {
+        console.log('err:', err);
+      });
+  }, []);
+
   const entrySummary = [
     {key: '1', item: 'Alimentação', price: 200},
     {key: '2', item: 'Combustível', price: 12},
@@ -18,7 +32,8 @@ export default function EntrySummaryList() {
           <Text>
             {item.key} - {item.item}: R$ {item.price}
           </Text>
-        )}></FlatList>
+        )}
+      />
     </View>
   );
 }
