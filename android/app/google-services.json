@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "51968958658",
+    "project_id": "smartmoney-e3d16",
+    "storage_bucket": "smartmoney-e3d16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51968958658:android:f6627f7e4f17a226f11b5b",
+        "android_client_info": {
+          "package_name": "com.estudo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51968958658-t9pdp9scdc8hrqohl4ncim56a8mdkoo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtYYKswGfvtQlB_5p62kcHLytWSDw2mcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51968958658-t9pdp9scdc8hrqohl4ncim56a8mdkoo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
