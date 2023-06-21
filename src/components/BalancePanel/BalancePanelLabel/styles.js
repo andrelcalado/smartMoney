@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   },
   labelEntry: {
     fontSize: 14,
-    marginTop: 50,
+    marginTop: 40,
     marginBottom: 10,
     color: Colors.white,
     fontWeight: '500',
@@ -34,6 +34,5 @@ export const styles = StyleSheet.create({
     paddingVertical: 7,
     paddingHorizontal: 30,
     borderRadius: 15,
-    marginBottom: 50,
   },
 });
