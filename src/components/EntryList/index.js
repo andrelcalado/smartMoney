@@ -4,6 +4,7 @@ import {getEntries} from '../../services/entry';
 
 import EntryListItem from './EntryListItem';
 import Container from '../Core/Container';
+import {styles} from './styles';
 
 export default function EntryList({navigation, onPressActionButton}) {
   const [entries, setEntries] = useState([]);
@@ -11,7 +12,14 @@ export default function EntryList({navigation, onPressActionButton}) {
   useEffect(() => {
     getEntries()
       .then(res => {
-        setEntries(res.map(item => item.data()));
+        setEntries(
+          res.map(item => {
+            const data = item.data();
+            data.id = item.id;
+
+            return data;
+          }),
+        );
       })
       .catch(err => {
         console.log(err);
@@ -26,6 +34,7 @@ export default function EntryList({navigation, onPressActionButton}) {
       onPressActionButton={onPressActionButton}>
       <FlatList
         data={entries}
+        style={styles.lastFeaturesContainer}
         renderItem={({item, index}) => (
           <EntryListItem
             entryItem={item}

@@ -15,22 +15,16 @@ import BalancePanelLabel from '../../components/BalancePanel/BalancePanelLabel';
 import {styles} from './styles';
 import Colors from '../../styles/colors';
 import {getInitCategories} from '../../services/category';
-import {addEntry} from '../../services/entry';
+import {addEntry, updateEntry} from '../../services/entry';
 
-export default function NewEntry({value, navigation}) {
+export default function NewEntry({navigation}) {
+  const editEntry = navigation.getParam('currEntry');
   const [categorys, setCategorys] = useState([]);
-  const [amout, setAmout] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [currentCategory, setCurrentCategory] = useState('');
-  const [debit, setDebit] = useState(value < 0 ? -1 : 1);
+  const [debit, setDebit] = useState(1);
   const [categoryModal, setCategoryModal] = useState(false);
   const [description, setDescription] = useState('');
-
-  const currEntry = navigation.getParam('currEntry', {
-    id: null,
-  });
-  const entrys = navigation.getParam('entrys', {
-    entrys: null,
-  });
 
   useEffect(() => {
     getInitCategories()
@@ -43,8 +37,13 @@ export default function NewEntry({value, navigation}) {
   }, []);
 
   useEffect(() => {
-    console.log(amout);
-  }, [amout]);
+    if (editEntry) {
+      setCurrentCategory(editEntry.category);
+      setDebit(editEntry.amount < 0 ? -1 : 1);
+      setAmount(editEntry.amount);
+      setDescription(editEntry.description);
+    }
+  }, [editEntry]);
 
   const onChangeDebit = () => {
     if (debit < 0) {
@@ -55,18 +54,43 @@ export default function NewEntry({value, navigation}) {
   };
 
   const addAmount = () => {
-    addEntry({
-      amount: amout * debit,
-      description,
-      category: currentCategory,
-    })
-      .then(() => {
-        Alert.alert('Value added!');
-        navigation.goBack();
+    if (editEntry) {
+      console.log('pre', editEntry);
+      console.log(
+        'debit: ',
+        debit,
+        'amount: ',
+        amount,
+        '; math:',
+        amount * debit,
+      );
+      updateEntry({
+        ...editEntry,
+        amount: amount < 0 && debit > 0 ? amount * -1 : amount * debit,
+        description,
+        category: currentCategory,
       })
-      .catch(() => {
-        Alert.alert('Erro');
-      });
+        .then(() => {
+          Alert.alert('Value edited!');
+          navigation.goBack();
+        })
+        .catch(() => {
+          Alert.alert('Erro');
+        });
+    } else {
+      addEntry({
+        amount: amount * debit,
+        description,
+        category: currentCategory,
+      })
+        .then(() => {
+          Alert.alert('Value added!');
+          navigation.goBack();
+        })
+        .catch(() => {
+          Alert.alert('Erro');
+        });
+    }
   };
 
   const onChangeCategory = item => {
@@ -112,7 +136,7 @@ export default function NewEntry({value, navigation}) {
         </View>
       </Modal>
 
-      <BalancePanelLabel currenteBalance={amout} newEntry />
+      <BalancePanelLabel currenteBalance={amount} newEntry />
 
       <View>
         <View style={styles.amountContainer}>
@@ -128,10 +152,10 @@ export default function NewEntry({value, navigation}) {
               precision: 2,
               unit: '',
             }}
-            value={String(amout)}
+            value={String(amount)}
             includeRawValueInChangeText
             onChangeText={(maskedValue, rawValue) => {
-              setAmout(rawValue);
+              setAmount(rawValue);
             }}
             style={[styles.input, styles.inputPrice]}
           />
@@ -172,7 +196,7 @@ export default function NewEntry({value, navigation}) {
               styles.labelSubmit,
               !currentCategory && styles.disabledButtonLabel,
             ]}>
-            Adicionar
+            {editEntry ? 'Salvar' : 'Adicionar'}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

@@ -22,6 +22,15 @@ export const addEntry = async entry => {
   }
 };
 
+export const updateEntry = async entry => {
+  try {
+    await firestore().collection('entry').doc(entry.id).update(entry);
+  } catch (error) {
+    console.error('addEntry :: error  on save object: ', JSON.stringify(error));
+    Alert.alert('Erro ao salvar os dados de lançamento');
+  }
+};
+
 export const getEntries = async () => {
   const querySnapshot = await firestore()
     .collection('entry')
