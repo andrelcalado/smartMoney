@@ -55,15 +55,6 @@ export default function NewEntry({navigation}) {
 
   const addAmount = () => {
     if (editEntry) {
-      console.log('pre', editEntry);
-      console.log(
-        'debit: ',
-        debit,
-        'amount: ',
-        amount,
-        '; math:',
-        amount * debit,
-      );
       updateEntry({
         ...editEntry,
         amount: amount < 0 && debit > 0 ? amount * -1 : amount * debit,
