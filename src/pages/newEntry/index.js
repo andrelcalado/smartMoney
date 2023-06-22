@@ -16,6 +16,7 @@ import {styles} from './styles';
 import Colors from '../../styles/colors';
 import {getInitCategories} from '../../services/category';
 import {addEntry, updateEntry} from '../../services/entry';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 export default function NewEntry({navigation}) {
   const editEntry = navigation.getParam('currEntry');
@@ -24,6 +25,8 @@ export default function NewEntry({navigation}) {
   const [currentCategory, setCurrentCategory] = useState('');
   const [debit, setDebit] = useState(1);
   const [categoryModal, setCategoryModal] = useState(false);
+  const [entryAt, setEntryAt] = useState();
+  const [dateModal, setDateModal] = useState(false);
   const [description, setDescription] = useState('');
 
   useEffect(() => {
@@ -166,6 +169,10 @@ export default function NewEntry({navigation}) {
       </View>
 
       <View style={styles.featuresButtons}>
+        <DateTimePicker mode="date" date={entryAt} />
+        <TouchableOpacity style={styles.featureButton}>
+          <Icon name="today" size={40} color={Colors.white} />
+        </TouchableOpacity>
         <TouchableOpacity style={styles.featureButton}>
           <Icon name="camera-alt" size={40} color={Colors.white} />
         </TouchableOpacity>
