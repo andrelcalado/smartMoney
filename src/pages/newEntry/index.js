@@ -41,6 +41,7 @@ export default function NewEntry({navigation}) {
 
   useEffect(() => {
     if (editEntry) {
+      console.log('date', editEntry.entryAt);
       setCurrentCategory(editEntry.category);
       setDebit(editEntry.amount < 0 ? -1 : 1);
       setAmount(editEntry.amount);
@@ -63,6 +64,7 @@ export default function NewEntry({navigation}) {
         amount: amount < 0 && debit > 0 ? amount * -1 : amount * debit,
         description,
         category: currentCategory,
+        entryAt,
       })
         .then(() => {
           Alert.alert('Value edited!');
@@ -76,6 +78,7 @@ export default function NewEntry({navigation}) {
         amount: amount * debit,
         description,
         category: currentCategory,
+        entryAt: entryAt || new Date(),
       })
         .then(() => {
           Alert.alert('Value added!');
@@ -90,6 +93,12 @@ export default function NewEntry({navigation}) {
   const onChangeCategory = item => {
     setCurrentCategory(item);
     setCategoryModal(false);
+  };
+
+  const onChangeDate = date => {
+    console.log(date);
+    setEntryAt(date);
+    setDateModal(false);
   };
 
   return (
@@ -169,8 +178,16 @@ export default function NewEntry({navigation}) {
       </View>
 
       <View style={styles.featuresButtons}>
-        <DateTimePicker mode="date" date={entryAt} />
-        <TouchableOpacity style={styles.featureButton}>
+        <DateTimePicker
+          mode="date"
+          date={entryAt}
+          isVisible={dateModal}
+          onConfirm={onChangeDate}
+          onCancel={() => setDateModal(false)}
+        />
+        <TouchableOpacity
+          onPress={() => setDateModal(true)}
+          style={styles.featureButton}>
           <Icon name="today" size={40} color={Colors.white} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.featureButton}>
