@@ -6,11 +6,11 @@ import EntryListItem from './EntryListItem';
 import Container from '../Core/Container';
 import {styles} from './styles';
 
-export default function EntryList({days = 7, navigation, onPressActionButton}) {
+export default function EntryList({navigation, days = 7, onPressActionButton}) {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    getEntries()
+    getEntries(days)
       .then(res => {
         setEntries(
           res.map(item => {

@@ -35,8 +35,6 @@ export const updateEntry = async entry => {
 export const getEntries = async (untilDays = 7) => {
   const date = moment().subtract(untilDays, 'days').toDate();
 
-  console.log('date', date);
-
   const querySnapshot = await firestore()
     .collection('entry')
     .orderBy('entryAt', 'desc')

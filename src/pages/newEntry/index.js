@@ -18,6 +18,7 @@ import {getInitCategories} from '../../services/category';
 import {addEntry, deleteEntry, updateEntry} from '../../services/entry';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import FooterActions from '../../components/FooterActions';
+import {secondsToDate} from '../../utils/stringTransform';
 
 export default function NewEntry({navigation}) {
   const editEntry = navigation.getParam('currEntry');
@@ -42,7 +43,7 @@ export default function NewEntry({navigation}) {
 
   useEffect(() => {
     if (editEntry) {
-      console.log('date', editEntry.entryAt);
+      setEntryAt(secondsToDate(editEntry.entryAt.seconds));
       setCurrentCategory(editEntry.category);
       setDebit(editEntry.amount < 0 ? -1 : 1);
       setAmount(editEntry.amount);
