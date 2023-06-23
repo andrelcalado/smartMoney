@@ -3,7 +3,7 @@ import Colors from '../../styles/colors';
 
 export const styles = StyleSheet.create({
   categoryModal: {
-    backgroundColor: 'rgba(0, 0, 0, .3)',
+    backgroundColor: Colors.backgroundDark,
     padding: 15,
     flex: 1,
   },

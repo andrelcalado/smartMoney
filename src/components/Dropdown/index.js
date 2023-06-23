@@ -1,12 +1,23 @@
 import React from 'react';
 import {FlatList, Modal, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
+import Colors from '../../styles/colors';
 
-export default function Dropdown({visible, setVisible, data, onChange}) {
+export default function Dropdown({
+  visible,
+  setVisible,
+  data,
+  onChange,
+  unitLabel,
+}) {
+  const onChangeItem = item => {
+    setVisible(false);
+    onChange(item);
+  };
+
   return (
     <Modal
       animationType="slide"
-      transparent
       visible={visible}
       onRequestClose={() => setVisible(!visible)}>
       <View style={styles.categoryModal}>
@@ -17,15 +28,15 @@ export default function Dropdown({visible, setVisible, data, onChange}) {
               const currItem = item.data ? item.data() : item;
 
               return (
-                <TouchableOpacity onPress={() => onChange(currItem)}>
+                <TouchableOpacity onPress={() => onChangeItem(currItem)}>
                   <Text
                     style={[
                       styles.input,
                       styles.categoryModalItemText,
-                      {color: currItem.color},
+                      {color: currItem.color || Colors.white},
                     ]}
                     key={index}>
-                    {currItem.name}
+                    {currItem.name || `${currItem} ${unitLabel}`}
                   </Text>
                 </TouchableOpacity>
               );

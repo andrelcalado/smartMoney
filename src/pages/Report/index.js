@@ -1,28 +1,50 @@
-import React from 'react';
-import {View, Picker, Button} from 'react-native';
-
-import BalancePanel from '../../components/BalancePanel';
+import React, {useState} from 'react';
+import {ScrollView, View} from 'react-native';
 import EntrySummary from '../../components/EntrySummary';
+import DropdownButton from '../../components/Core/DropdownButton';
 import EntryList from '../../components/EntryList';
 import FooterActions from '../../components/FooterActions';
+import BalancePanelLabel from '../../components/BalancePanel/BalancePanelLabel';
+import Dropdown from '../../components/Dropdown';
+import {styles} from './styles';
 
 export default function Report({navigation}) {
+  const [daysFilter, setDaysFilter] = useState(7);
+  const [daysFilterModal, setDaysFilterModal] = useState(false);
+  const relativeDays = [1, 3, 7, 15, 21, 30, 45, 60, 90, 180, 365];
+  const [categoryFilter, setCategoryFilter] = useState();
+  const [categoryFilterModal, setCategoryFilterModal] = useState(false);
+
+  const returnS = () => {
+    return daysFilter > 1 ? 's' : '';
+  };
+
   return (
     <View>
-      <BalancePanel />
+      <BalancePanelLabel newEntry />
 
-      <View>
-        <Picker>
-          <Picker.Item label="Todas Categorias"></Picker.Item>
-        </Picker>
+      <View style={styles.filtersContainer}>
+        <DropdownButton
+          label={`Último${returnS()} ${daysFilter} dia${returnS()}`}
+          onPress={() => setDaysFilterModal(true)}
+        />
+        <Dropdown
+          unitLabel="dias"
+          data={relativeDays}
+          onChange={setDaysFilter}
+          visible={daysFilterModal}
+          setVisible={setDaysFilterModal}
+        />
 
-        <Picker>
-          <Picker.Item label="Últimos 7 Dias"></Picker.Item>
-        </Picker>
+        <DropdownButton
+          label={categoryFilter ? categoryFilter : 'Category'}
+          onPress={() => setCategoryFilterModal(true)}
+        />
       </View>
 
       <EntrySummary />
-      <EntryList />
+
+      <EntryList days={daysFilter} />
 
       <FooterActions
         onSubmit={() => {}}

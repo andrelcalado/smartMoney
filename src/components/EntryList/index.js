@@ -24,7 +24,7 @@ export default function EntryList({navigation, days = 7, onPressActionButton}) {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [days]);
 
   return (
     <Container

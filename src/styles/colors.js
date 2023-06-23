@@ -28,6 +28,7 @@ const Colors = {
   light: '#ecf0f1',
   dark: '#34495e',
   background: '#233240',
+  backgroundDark: '#121A21',
 };
 
 export default Colors;
