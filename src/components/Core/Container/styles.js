@@ -10,12 +10,14 @@ export const styles = StyleSheet.create({
   },
   actionContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
   },
   summaryContainer: {
     backgroundColor: Colors.asphalt,
     margin: 5,
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     borderRadius: 7,
     borderStyle: 'solid',
     borderWidth: 1,

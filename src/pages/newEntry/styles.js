@@ -33,33 +33,6 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 17,
   },
-  actionButtons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingBottom: 30,
-  },
-  submitButton: {
-    borderWidth: 2,
-    marginRight: 10,
-    borderRadius: 40,
-    borderColor: Colors.turqueseDark,
-    paddingVertical: 10,
-    paddingHorizontal: 45,
-  },
-  cancelButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-  },
-  labelSubmit: {
-    color: Colors.turqueseDark,
-    fontSize: 20,
-    fontWeight: '500',
-  },
-  buttonLabel: {
-    color: Colors.white,
-    fontSize: 18,
-    fontWeight: '400',
-  },
   amountContainer: {
     position: 'relative',
     width: '80%',
@@ -115,12 +88,6 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     fontSize: 15,
-  },
-  disabledButton: {
-    borderColor: Colors.metalDark,
-  },
-  disabledButtonLabel: {
-    color: Colors.metalDark,
   },
   deleteButton: {
     backgroundColor: Colors.redDark,

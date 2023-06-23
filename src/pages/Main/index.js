@@ -10,9 +10,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {styles} from './styles';
 
 const Main = ({navigation}) => {
-  const [categorys, setCategorys] = React.useState([]);
-  const [cateName, cateNameSet] = React.useState('');
-
   return (
     <View style={styles.container}>
       <BalancePanel />

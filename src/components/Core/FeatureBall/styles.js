@@ -4,7 +4,7 @@ import Colors from '../../../styles/colors';
 export const styles = StyleSheet.create({
   ballContent: {
     position: 'relative',
-    marginHorizontal: 15,
+    marginHorizontal: 10,
   },
   ball: {
     width: 17,

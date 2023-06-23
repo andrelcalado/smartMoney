@@ -1,5 +1,6 @@
-import firestore from '@react-native-firebase/firestore';
 import {Alert} from 'react-native';
+import moment from '../utils/moment';
+import firestore from '@react-native-firebase/firestore';
 
 export const addEntry = async entry => {
   try {
@@ -31,10 +32,15 @@ export const updateEntry = async entry => {
   }
 };
 
-export const getEntries = async () => {
+export const getEntries = async (untilDays = 7) => {
+  const date = moment().subtract(untilDays, 'days').toDate();
+
+  console.log('date', date);
+
   const querySnapshot = await firestore()
     .collection('entry')
-    .orderBy('entryAt', 'asc')
+    .orderBy('entryAt', 'desc')
+    .endBefore(date)
     .get();
 
   return querySnapshot.docs;

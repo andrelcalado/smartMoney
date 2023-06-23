@@ -6,7 +6,7 @@ import EntryListItem from './EntryListItem';
 import Container from '../Core/Container';
 import {styles} from './styles';
 
-export default function EntryList({navigation, onPressActionButton}) {
+export default function EntryList({days = 7, navigation, onPressActionButton}) {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function EntryList({navigation, onPressActionButton}) {
   return (
     <Container
       title="Últimos Lançamentos"
-      actionLabel="Últimos 7 Dias"
+      actionLabel={`Últimos ${days} Dias`}
       actionButtonText="Ver mais"
       onPressActionButton={onPressActionButton}>
       <FlatList

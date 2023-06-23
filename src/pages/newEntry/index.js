@@ -17,6 +17,7 @@ import Colors from '../../styles/colors';
 import {getInitCategories} from '../../services/category';
 import {addEntry, deleteEntry, updateEntry} from '../../services/entry';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import FooterActions from '../../components/FooterActions';
 
 export default function NewEntry({navigation}) {
   const editEntry = navigation.getParam('currEntry');
@@ -228,30 +229,14 @@ export default function NewEntry({navigation}) {
         )}
       </View>
 
-      <View style={styles.actionButtons}>
-        <TouchableOpacity
-          disabled={!currentCategory}
-          style={[
-            styles.submitButton,
-            !currentCategory && styles.disabledButton,
-          ]}
-          onPress={addAmount}>
-          <Text
-            style={[
-              styles.labelSubmit,
-              !currentCategory && styles.disabledButtonLabel,
-            ]}>
-            {editEntry ? 'Salvar' : 'Adicionar'}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.cancelButton}
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Text style={styles.buttonLabel}>Cancelar</Text>
-        </TouchableOpacity>
-      </View>
+      <FooterActions
+        submitDisable={!currentCategory}
+        onSubmit={addAmount}
+        submitLabel={editEntry ? 'Salvar' : 'Adicionar'}
+        onCancel={() => {
+          navigation.goBack();
+        }}
+      />
     </ScrollView>
   );
 }
