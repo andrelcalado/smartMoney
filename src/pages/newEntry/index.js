@@ -19,6 +19,7 @@ import {addEntry, deleteEntry, updateEntry} from '../../services/entry';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import FooterActions from '../../components/FooterActions';
 import {secondsToDate} from '../../utils/stringTransform';
+import Dropdown from '../../components/Dropdown';
 
 export default function NewEntry({navigation}) {
   const editEntry = navigation.getParam('currEntry');
@@ -123,41 +124,12 @@ export default function NewEntry({navigation}) {
 
   return (
     <ScrollView>
-      <Modal
-        animationType="slide"
-        transparent
+      <Dropdown
+        data={categorys}
         visible={categoryModal}
-        onRequestClose={() => setCategoryModal(!categoryModal)}>
-        <View style={styles.categoryModal}>
-          <View style={styles.categoryModalContainer}>
-            <FlatList
-              data={categorys}
-              renderItem={({item, index}) => {
-                const data = item.data();
-
-                return (
-                  <TouchableOpacity onPress={() => onChangeCategory(data)}>
-                    <Text
-                      style={[
-                        styles.input,
-                        styles.categoryModalItemText,
-                        {color: data.color},
-                      ]}
-                      key={index}>
-                      {data.name}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              }}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setCategoryModal(false)}>
-              <Text style={styles.closeButtonText}>Cancelar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+        setVisible={setCategoryModal}
+        onChange={onChangeCategory}
+      />
 
       <BalancePanelLabel currenteBalance={amount} newEntry />
 
