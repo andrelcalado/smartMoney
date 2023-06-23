@@ -15,7 +15,7 @@ import BalancePanelLabel from '../../components/BalancePanel/BalancePanelLabel';
 import {styles} from './styles';
 import Colors from '../../styles/colors';
 import {getInitCategories} from '../../services/category';
-import {addEntry, updateEntry} from '../../services/entry';
+import {addEntry, deleteEntry, updateEntry} from '../../services/entry';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 export default function NewEntry({navigation}) {
@@ -96,9 +96,27 @@ export default function NewEntry({navigation}) {
   };
 
   const onChangeDate = date => {
-    console.log(date);
     setEntryAt(date);
     setDateModal(false);
+  };
+
+  const onDeleteEntry = () => {
+    Alert.alert('Delete?', 'Do you really want to delete this?', [
+      {text: 'No', style: 'cancel'},
+      {
+        text: 'Yes',
+        onPress: () => {
+          deleteEntry(editEntry)
+            .then(() => {
+              Alert.alert('Entry deleted!');
+              navigation.goBack();
+            })
+            .catch(err => {
+              console.log('err: ', err);
+            });
+        },
+      },
+    ]);
   };
 
   return (
@@ -188,14 +206,26 @@ export default function NewEntry({navigation}) {
         <TouchableOpacity
           onPress={() => setDateModal(true)}
           style={styles.featureButton}>
-          <Icon name="today" size={40} color={Colors.white} />
+          <Icon name="today" size={editEntry ? 30 : 40} color={Colors.white} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.featureButton}>
-          <Icon name="camera-alt" size={40} color={Colors.white} />
+          <Icon
+            name="camera-alt"
+            size={editEntry ? 30 : 40}
+            color={Colors.white}
+          />
         </TouchableOpacity>
         <TouchableOpacity style={styles.featureButton}>
-          <Icon name="place" size={40} color={Colors.white} />
+          <Icon name="place" size={editEntry ? 30 : 40} color={Colors.white} />
         </TouchableOpacity>
+
+        {editEntry && (
+          <TouchableOpacity
+            onPress={onDeleteEntry}
+            style={[styles.featureButton, styles.deleteButton]}>
+            <Icon name="delete" size={30} color={Colors.white} />
+          </TouchableOpacity>
+        )}
       </View>
 
       <View style={styles.actionButtons}>

@@ -39,3 +39,15 @@ export const getEntries = async () => {
 
   return querySnapshot.docs;
 };
+
+export const deleteEntry = async entry => {
+  try {
+    await firestore().collection('entry').doc(entry.id).delete();
+  } catch (error) {
+    console.error(
+      'addEntry :: error  on delete object: ',
+      JSON.stringify(error),
+    );
+    Alert.alert('Erro ao deletar os dados');
+  }
+};

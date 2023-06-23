@@ -21,14 +21,16 @@ export const styles = StyleSheet.create({
   },
   featuresButtons: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     marginTop: 15,
     marginBottom: 60,
+    width: '80%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   featureButton: {
     backgroundColor: Colors.asphalt,
     borderRadius: 50,
-    marginRight: 20,
     padding: 17,
   },
   actionButtons: {
@@ -119,5 +121,8 @@ export const styles = StyleSheet.create({
   },
   disabledButtonLabel: {
     color: Colors.metalDark,
+  },
+  deleteButton: {
+    backgroundColor: Colors.redDark,
   },
 });
